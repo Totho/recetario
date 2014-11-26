@@ -18,11 +18,12 @@ def inicio(request):
     recetas = Receta.objects.all()
     return render_to_response('inicio.html',{'recetas':recetas}, context_instance=RequestContext(request))
 
+@login_required(login_url='/ingresar')
 def usuarios(request):
     usuarios = User.objects.all()
     recetas = Receta.objects.all()
     return render_to_response('usuarios.html',{'usuarios':usuarios,'recetas':recetas}, context_instance=RequestContext(request))
-
+@login_required(login_url='/ingresar')
 def lista_recetas(request):
     recetas = Receta.objects.all()
     return render_to_response('recetas.html',{'recetas':recetas}, context_instance=RequestContext(request))
@@ -46,6 +47,7 @@ def contacto(request):
         formulario = ContactoForm()
     return render_to_response('contactoform.html',{'formulario':formulario}, context_instance=RequestContext(request))
 
+@login_required(login_url='/ingresar')
 def nueva_receta(request):
     if request.method=='POST':
         formulario = RecetaForm(request.POST, request.FILES)
@@ -57,6 +59,7 @@ def nueva_receta(request):
     return render_to_response('recetaform.html',{'formulario':formulario}, context_instance=RequestContext(request))
 
 
+@login_required(login_url='/ingresar')
 def nuevo_comentario(request):
     if request.method=='POST':
         formulario = ComentarioForm(request.POST)
@@ -106,4 +109,4 @@ def privado(request):
 @login_required(login_url='/ingresar')
 def cerrar(request):
     logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/inicio')
