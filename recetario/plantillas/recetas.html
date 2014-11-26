@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block titulo %} Recetas registradas {% endblock %}
+
+{% block css %}
+  <style>
+	img { width:100px; }
+  </style>
+{% endblock %}
+
+
+{% block encabezado %}
+  <h1>Nuestras recetas</h1>
+{% endblock %}
+
+{% block contenido %}
+<a href="/receta/nueva">Agregar una receta</a>
+
+  <p>
+	  Actualmente tenemos registradas: 
+     {% with total=recetas.count %} 
+		{{total}} receta{{total|pluralize}}
+	 {% endwith %}
+  </p>
+	<ul>		
+	  {% for dato in recetas %}
+	  <li class="{% cycle 'impar' 'par' %}">{{dato.titulo|title}}</li>
+	  {% empty %}
+	  <li>No hay recetas registradas aún.</li>
+	  {% endfor %}
+	</ul>
+
+{% endblock %}
