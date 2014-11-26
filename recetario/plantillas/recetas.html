@@ -21,12 +21,33 @@
 		{{total}} receta{{total|pluralize}}
 	 {% endwith %}
   </p>
+
 	<ul>		
-	  {% for dato in recetas %}
-	  <li class="{% cycle 'impar' 'par' %}">{{dato.titulo|title}}</li>
-	  {% empty %}
-	  <li>No hay recetas registradas aún.</li>
-	  {% endfor %}
+	  	{% for dato in recetas %}
+	  	<li class="{% cycle 'impar' 'par' %}">{{dato.titulo|title}}</li>
+
+	 
+	  
+	 	{% empty %}
+		<li>No hay recetas registradas aún.</li>
+		{% endfor %}
+		{% block encabezado1 %}
+	<h1>Nuestras recetas</h1>
+  		{% endblock %}
+
+	{% block contenido1 %}
+	
+	<ul>
+		{% for dato in datos %}
+	<li>
+		<a href='{% url principal.views.detalle_receta dato.id %}'>{{dato.titulo}}</a>
+		<img src='{{MEDIA_URL}}{{dato.imagen}}'>
+	</li>
+		{% empty %}
+	<li>Aún no hay recetas registradas</li>
+		{% endfor %}
+</ul>
+	{% endblock %}
 	</ul>
 
 {% endblock %}
